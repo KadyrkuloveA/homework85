@@ -1,10 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {fetchArtist} from "../../store/actions/artistsActions";
 import {connect} from "react-redux";
 import {apiURL} from "../../constants";
 import {fetchAlbums} from "../../store/actions/albumsActions";
 import {Link} from "react-router-dom";
-import "./Artist.css";
 
 class Artist extends Component {
     componentDidMount() {
@@ -14,7 +13,7 @@ class Artist extends Component {
 
     render() {
         return (
-            <div className="container">
+            <Fragment>
                 <div className="row align-items-start justify-content-around">
                     <div className="card" style={{maxWidth: "500px"}}>
                         <img src={apiURL + '/uploads/' + this.props.artist.image} className="card-img" alt="..."/>
@@ -25,7 +24,7 @@ class Artist extends Component {
                     </div>
                     <div className="card-deck col-5 row flex-wrap">
                         {this.props.albums.map(album => (
-                            <div className="card" style={{maxWidth: "200px"}}>
+                            <div className="card" style={{maxWidth: "200px"}} key={album._id}>
                                 <Link to={"/album/" + album._id}>
                                     <img src={apiURL + '/uploads/' + album.image} className="card-img-top" alt="..."/>
                                     <div className="card-body">
@@ -37,7 +36,7 @@ class Artist extends Component {
                         ))}
                     </div>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }

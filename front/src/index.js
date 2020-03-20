@@ -11,6 +11,8 @@ import App from './App';
 import artistsReducer from "./store/reducers/artistsReducer";
 import albumsReducer from "./store/reducers/albumsReducer";
 import tracksReducer from "./store/reducers/tracksReducer";
+import usersReducer from "./store/reducers/usersReducer";
+import trackHistoryReducer from "./store/reducers/trackHistoryReducer";
 
 
 const history = createBrowserHistory();
@@ -21,7 +23,9 @@ const rootReducer = combineReducers({
     router: connectRouter(history),
     artists: artistsReducer,
     albums: albumsReducer,
-    tracks: tracksReducer
+    tracks: tracksReducer,
+    users: usersReducer,
+    trackHistory: trackHistoryReducer
 });
 
 const middleware = [

@@ -1,8 +1,8 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import {fetchAlbum} from "../../store/actions/albumsActions";
 import {connect} from "react-redux";
 import {fetchTracks} from "../../store/actions/tracksActions";
-import "./Album.css";
+import {addTrackToHistory} from "../../store/actions/trackHistoryActions";
 
 class Album extends Component {
     componentDidMount() {
@@ -12,17 +12,17 @@ class Album extends Component {
 
     render() {
         return (
-            <div className="container">
+            <Fragment>
                 <h3>{this.props.artistName.name}</h3>
                 <h4>{this.props.album.title}</h4>
                 <div>
                     <ul className="list-group list-group-flush mt-5">
                         {this.props.tracks.map(track => (
-                            <li className="list-group-item">{track.order}. {track.title} {track.duration}sec</li>
+                            <li className="list-group-item" onClick={() => this.props.addTrackToHistory(track._id)} key={track._id}>{track.order}. {track.title} {track.duration}sec</li>
                         ))}
                     </ul>
                 </div>
-            </div>
+            </Fragment>
         );
     }
 }
@@ -35,7 +35,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchAlbum: (id) => dispatch(fetchAlbum(id)),
-    fetchTracks: (id) => dispatch(fetchTracks(id))
+    fetchTracks: (id) => dispatch(fetchTracks(id)),
+    addTrackToHistory: (id) => dispatch(addTrackToHistory(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Album);
